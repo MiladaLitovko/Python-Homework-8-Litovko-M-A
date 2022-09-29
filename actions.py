@@ -69,12 +69,24 @@ def update_info():
     file.close()
 
 
-def add_column():
-    new_column = str(input('Введите номер сотрудника, данные которого нужно отредактировать: '))
-    with open('info_employees.txt', 'r', encoding="utf-8" ) as file:
+def export_info():
+    number = int(input('Выберите формат показа данных: \n1: ID, Фамилия, Имя, Телефон, Должность \n2: \nID \nФамилия \nИмя \nТелефон \nДолжность \nВведите номер формата: '))
+    file = open('info_employees.txt', 'r', encoding="utf-8")
+    new_file = open('export_file.txt', 'w', encoding="utf-8")
+ 
+    if number == 1:
         for line in file:
-#            if line.startswith():
-                data = line.split(', ')
-                data[current] = new_data
-
+            new_file.write(line)   
+    elif number == 2:
+       for line in file:
+            info = line.split(', ')
+            for i in info:
+                new_file.write(i + '\n')   
+            # new_file.write('\n')
+    else:
+        file.close()
+        new_file.close()
+        print('Неверно введенная цифра - экспорт данных прерван')
+        return
     file.close()
+    new_file.close()
